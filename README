@@ -1,1 +1,12 @@
-== Welcome to the Devise Rails Rating template
+== Welcome to the Devise Rails (3.0.9) Rating template application.
+
+Just a simple demo application with authentication, and an integer rating with a description, as an example.
+
+Devise provides Authentication ( more information at: https://github.com/plataformatec/devise#readme )
+
+Thanks to Ryan Bates & Rails Casts & Ascii Casts: 
+ http://railscasts.com/episodes/209-introducing-devise
+ http://asciicasts.com/episodes/209-introducing-devise
+
+June 23rd 2010-TODO-Add user to rating, to illustrate how to tie the User and Rating model together.
+June 23rd 2010-TODO-Add basic roles - not sure what to use for Role yet; presume there's something with Devise already.
