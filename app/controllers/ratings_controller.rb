@@ -66,7 +66,7 @@ class RatingsController < ApplicationController
   # PUT /ratings/1
   # PUT /ratings/1.xml
   def update
-    @rating = Rating.where(:user_id=>current_user.id).where(:id=>params[:id]) #todo-protect from id?
+    @rating = Rating.where(:user_id=>current_user.id).where(:id=>params[:id]).first #todo-protect from id?
 
     respond_to do |format|
       if @rating.update_attributes(params[:rating])

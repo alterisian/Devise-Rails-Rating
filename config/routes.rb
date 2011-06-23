@@ -1,6 +1,4 @@
 Templateapp::Application.routes.draw do
-  resources :commentries
-
   devise_for :users
 
   resources :ratings
