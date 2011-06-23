@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(:version => 20110623163817) do
 
   create_table "ratings", :force => true do |t|
+    t.integer  "user_id"
     t.integer  "value"
     t.string   "description"
     t.datetime "created_at"

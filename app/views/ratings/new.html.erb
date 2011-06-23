@@ -1,5 +1,21 @@
-<h1>New rating</h1>
+<h1>New Rating</h1>
 
-<%= render 'form' %>
+<% form_for(@rating) do |f| %>
+  <%= f.error_messages %>
 
-<%= link_to 'Back', ratings_path %>
+  <p>
+    <%= f.label :value %>(1-10)<br />
+    <%= f.text_field :value, :size=>3 %>
+  </p>
+  
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'List Ratings', ratings_path %>
+(i.e. rating of your enjoyment of a band, and then description of who & where you are watching them, and your initial.)

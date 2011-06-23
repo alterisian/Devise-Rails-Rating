@@ -1,21 +1,21 @@
-<h1>Listing ratings</h1>
+<h1>Listing Ratings</h1>
+
+<%= link_to 'New Rating', new_rating_path %>
 
 <table>
   <tr>
+	<th>Time</th>
     <th>Value</th>
     <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @ratings.each do |rating| %>
   <tr>
-    <td><%= rating.value %></td>
-    <td><%= rating.description %></td>
-    <td><%= link_to 'Show', rating %></td>
+	<td><%=h (rating.created_at+1.hour).to_s(:short) %></td>
+    <td><%=h rating.value %></td>
+    <td><%=h rating.description %></td>    
     <td><%= link_to 'Edit', edit_rating_path(rating) %></td>
-    <td><%= link_to 'Destroy', rating, :confirm => 'Are you sure?', :method => :delete %></td>
+    <!-- <td><%= link_to 'Destroy', rating, :confirm => 'Are you sure?', :method => :delete %></td> -->
   </tr>
 <% end %>
 </table>

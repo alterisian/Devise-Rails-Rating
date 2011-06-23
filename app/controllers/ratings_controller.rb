@@ -1,9 +1,9 @@
 class RatingsController < ApplicationController
   # GET /ratings
   # GET /ratings.xml
-  def index
-    @ratings = Rating.all
-
+  def index  
+	@ratings = Rating.where('user_id=?',current_user.id).order("created_at DESC")
+	
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @ratings }
@@ -34,17 +34,27 @@ class RatingsController < ApplicationController
 
   # GET /ratings/1/edit
   def edit
-    @rating = Rating.find(params[:id])
+    @rating = Rating.where(:user_id=>current_user.id).where(:id=>params[:id]).first
+	if @rating.nil?
+		#notify[:notice] => 'Cheak!'
+		redirect_to :ratings
+	end
   end
 
   # POST /ratings
   # POST /ratings.xml
   def create
     @rating = Rating.new(params[:rating])
-
+	@rating.user = current_user
+	
     respond_to do |format|
       if @rating.save
-        format.html { redirect_to(@rating, :notice => 'Rating was successfully created.') }
+		msg = @rating.value.to_s
+		msg=msg+", for " +@rating.description unless (@rating.description.nil? or @rating.description.empty?)
+
+        flash[:notice] = 'Rating '+msg+' was successfully created.'
+		
+        format.html { redirect_to(ratings_url) }
         format.xml  { render :xml => @rating, :status => :created, :location => @rating }
       else
         format.html { render :action => "new" }
@@ -56,11 +66,13 @@ class RatingsController < ApplicationController
   # PUT /ratings/1
   # PUT /ratings/1.xml
   def update
-    @rating = Rating.find(params[:id])
+    @rating = Rating.where(:user_id=>current_user.id).where(:id=>params[:id]) #todo-protect from id?
 
     respond_to do |format|
       if @rating.update_attributes(params[:rating])
-        format.html { redirect_to(@rating, :notice => 'Rating was successfully updated.') }
+        flash[:notice] = 'Rating was successfully updated.'
+		
+        format.html { redirect_to(@rating) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -73,7 +85,7 @@ class RatingsController < ApplicationController
   # DELETE /ratings/1.xml
   def destroy
     @rating = Rating.find(params[:id])
-    @rating.destroy
+    #@rating.destroy
 
     respond_to do |format|
       format.html { redirect_to(ratings_url) }
